@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+<property>
+<name>dfs.replication</name>
+<value>3</value>
+</property>
+<!--是否开启hdfs的权限-->
+<property>
+<name>dfs.permissions</name>
+<value>false</value>
+</property>
+
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>/home/PL/hadata/dfs/name</value>
+</property>
+
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>/home/PL/hadata/dfs/data</value>
+</property>
+<!--hdfs的命名空间，集群逻辑名称-->
+<property>
+  <name>dfs.nameservices</name>
+  <value>PL</value>
+</property>
+<!--集群下面的namenode的别名-->
+<property>
+  <name>dfs.ha.namenodes.PL</name>
+  <value>PL1,PL2</value>
+</property>
+<!--指定PL1,PL2的RPC通信地址-->
+<property>
+  <name>dfs.namenode.rpc-address.PL.PL1</name>
+  <value>SZ01:8020</value>
+</property>
+<property>
+  <name>dfs.namenode.rpc-address.PL.PL2</name>
+  <value>SZ03:8020</value>
+</property>
+<!--指定namenode的web通信地址-->
+<property>
+  <name>dfs.namenode.http-address.PL.PL1</name>
+  <value>SZ01:50070</value>
+</property>
+<property>
+  <name>dfs.namenode.http-address.PL.PL2</name>
+  <value>SZ03:50070</value>
+</property>
+<!--指定共享日志目录-->
+<property>
+  <name>dfs.namenode.shared.edits.dir</name>
+
+  <value>qjournal://SZ01:8485;SZ03:8485;SZ04:8485/PL</value>
+</property>
+<!--指定开启namenode失败自动转移-->
+<property>
+   <name>dfs.ha.automatic-failover.enabled</name>
+   <value>true</value>
+</property>
+<!--指定失败转移的类-->
+<property>
+  <name>dfs.client.failover.proxy.provider.PL</name>
+  <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+</property>
+<!--防止namenode的脑裂 就是不能同时运行2个-->
+<property>
+   <name>dfs.ha.fencing.methods</name>
+   <value>sshfence</value>
+</property>
+<property>
+   <name>dfs.ha.fencing.ssh.private-key-files</name>
+   <value>/home/PL/.ssh/id_rsa</value>
+</property>
+<!--指定超时时间设置-毫秒-->
+<property>
+  <name>dfs.ha.fencing.ssh.connect-timeout</name>
+  <value>30000</value>
+</property>
+
+<!--指定日志的本地目录-->
+<property>
+  <name>dfs.journalnode.edits.dir</name>
+  <value>/home/PL/hadata/journal</value>
+</property>
+<!--是否开启webhdfs的-->
+<property>
+<name>dfs.webhdfs.enabled</name>
+<value>true</value>
+</property>
+</configuration>
